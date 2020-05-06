@@ -4,6 +4,7 @@ package com.fyb.shop.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fyb.shop.common.CommonPage;
 import com.fyb.shop.common.CommonResult;
 import com.fyb.shop.entity.User;
 import com.fyb.shop.mapper.UserMapper;
@@ -68,9 +69,12 @@ public class UserController {
     }
 
     @GetMapping("/test")
-    public IPage<User> test(){
-        IPage<User> userIPage = userMapper.selectPageVo(new Page<User>());
-        return userIPage;
+    public CommonPage<User> test(){
+        Page<User> userPage = new Page<>();
+        userPage.setCurrent(2);
+        IPage<User> userIPage = userMapper.selectPageVo(userPage);
+        CommonPage<User> userCommonPage = CommonPage.restPage(userIPage);
+        return userCommonPage;
     }
 
 
