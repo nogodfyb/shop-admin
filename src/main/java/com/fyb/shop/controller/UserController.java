@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fyb.shop.common.CommonPage;
 import com.fyb.shop.common.CommonResult;
+import com.fyb.shop.dto.UserPageParam;
 import com.fyb.shop.entity.User;
 import com.fyb.shop.mapper.UserMapper;
 import com.fyb.shop.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -68,10 +70,11 @@ public class UserController {
         return userinfo;
     }
 
-    @GetMapping("/test")
-    public CommonPage<User> test(){
+    @PostMapping("/test")
+    public CommonPage<User> test(@RequestBody @Valid UserPageParam pageParam){
         Page<User> userPage = new Page<>();
-        userPage.setCurrent(2);
+        userPage.setCurrent(pageParam.getPageNum());
+        userPage.setSize(pageParam.getPageSize());
         IPage<User> userIPage = userMapper.selectPageVo(userPage);
         CommonPage<User> userCommonPage = CommonPage.restPage(userIPage);
         return userCommonPage;
