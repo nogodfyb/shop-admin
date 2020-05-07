@@ -100,6 +100,25 @@ public class UserController {
         commonResult.setStatus(200);
         return commonResult;
     }
+    @GetMapping("/users/{id}")
+    @CrossOrigin(allowCredentials = "true")
+    public CommonResult<User> getUserById(HttpSession session, @PathVariable Integer id){
+        CommonResult<User> commonResult = new CommonResult<>();
+        boolean login = isLogin(session);
+        if(!login){
+            commonResult.setMsg("请登录！");
+            return commonResult;
+        }
+        User user = userService.getById(id);
+        if(user==null){
+            commonResult.setMsg("获取用户信息失败!");
+        }
+        commonResult.setMsg("成功获取用户信息！");
+        commonResult.setStatus(200);
+        user.setPassword("");
+        commonResult.setData(user);
+        return commonResult;
+    }
 
     @PostMapping("/users")
     @CrossOrigin(allowCredentials = "true")
@@ -116,6 +135,25 @@ public class UserController {
         }
         commonResult.setStatus(201);
         commonResult.setMsg("保存用户成功！");
+        return commonResult;
+    }
+
+    @PutMapping("/users")
+    @CrossOrigin(allowCredentials = "true")
+    public CommonResult<CommonPage<UserVo>> updateUser(@RequestBody User user, HttpSession session){
+        CommonResult<CommonPage<UserVo>> commonResult = new CommonResult<>();
+        boolean login = isLogin(session);
+        if(!login){
+            commonResult.setMsg("请登录！");
+            return commonResult;
+        }
+        user.setPassword(null);
+        boolean update = userService.updateById(user);
+        if(!update){
+            commonResult.setMsg("修改失败！");
+        }
+        commonResult.setStatus(201);
+        commonResult.setMsg("修改用户成功！");
         return commonResult;
     }
 
