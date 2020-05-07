@@ -3,6 +3,6 @@
 <mapper namespace="com.fyb.shop.mapper.UserMapper">
 
     <select id="selectPageVo" resultType="com.fyb.shop.vo.UserVo">
-    SELECT id,username,password,mobile,email,type ,mg_state FROM user
+    SELECT id,username,password,mobile,email,type ,mg_state FROM user WHERE username LIKE CONCAT('%',#{query},'%')
     </select>
 </mapper>

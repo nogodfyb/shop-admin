@@ -11,5 +11,7 @@ public class UserPageParam {
     private Integer pageNum;
     @NotNull(message = "pageSize不能为空")
     private Integer pageSize;
+    @NotNull(message = "query不能为空")
+    private String query;
 
 }

@@ -83,7 +83,7 @@ public class UserController {
 
     @GetMapping("/users")
     @CrossOrigin(allowCredentials = "true")
-    public CommonResult<CommonPage<UserVo>> test(@Valid UserPageParam pageParam, HttpSession session){
+    public CommonResult<CommonPage<UserVo>> getUsers(@Valid UserPageParam pageParam, HttpSession session){
         CommonResult<CommonPage<UserVo>> commonResult = new CommonResult<>();
         boolean login = isLogin(session);
         if(!login){
@@ -93,11 +93,32 @@ public class UserController {
         Page<UserVo> userPage = new Page<>();
         userPage.setCurrent(pageParam.getPageNum());
         userPage.setSize(pageParam.getPageSize());
-        IPage<UserVo> userIPage = userMapper.selectPageVo(userPage);
+        IPage<UserVo> userIPage = userMapper.selectPageVo(userPage,pageParam.getQuery());
         CommonPage<UserVo> userCommonPage = CommonPage.restPage(userIPage);
         commonResult.setMsg("获取成功");
         commonResult.setData(userCommonPage);
         commonResult.setStatus(200);
+        return commonResult;
+    }
+
+    @PutMapping("/users/{userId}/mgState/{mgState}")
+    @CrossOrigin(allowCredentials = "true")
+    public CommonResult<CommonPage<UserVo>> updateMgState(HttpSession session, @PathVariable Integer userId,
+                                                          @PathVariable Boolean mgState){
+        CommonResult<CommonPage<UserVo>> commonResult = new CommonResult<>();
+        boolean login = isLogin(session);
+        if(!login){
+            commonResult.setMsg("请登录！");
+            return commonResult;
+        }
+        User user = new User();
+        user.setId(userId);
+        user.setMgState(mgState);
+        boolean update = userService.updateById(user);
+        if(update){
+            commonResult.setMsg("更新成功");
+            commonResult.setStatus(200);
+        }
         return commonResult;
     }
 

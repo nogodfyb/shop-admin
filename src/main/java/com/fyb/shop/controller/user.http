@@ -23,6 +23,9 @@ GET http://localhost:8081/shop/user/get
 Accept: application/json
 
 ###
-GET http://localhost:8081/shop/user/users?pageNum=1&pageSize=2
+GET http://localhost:8081/shop/user/users?pageNum=1&pageSize=2&query=ad
 
+###
+PUT http://localhost:8081/shop/user/users/1/mgState/false
+Accept: application/json
 ###

@@ -16,6 +16,6 @@ import com.fyb.shop.vo.UserVo;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-    IPage<UserVo> selectPageVo(Page<UserVo> page);
+    IPage<UserVo> selectPageVo(Page<UserVo> page,String query);
 
 }
