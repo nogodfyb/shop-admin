@@ -101,6 +101,24 @@ public class UserController {
         return commonResult;
     }
 
+    @PostMapping("/users")
+    @CrossOrigin(allowCredentials = "true")
+    public CommonResult<CommonPage<UserVo>> addUser(@RequestBody User user, HttpSession session){
+        CommonResult<CommonPage<UserVo>> commonResult = new CommonResult<>();
+        boolean login = isLogin(session);
+        if(!login){
+            commonResult.setMsg("请登录！");
+            return commonResult;
+        }
+        boolean save = userService.save(user);
+        if(!save){
+            commonResult.setMsg("保存失败！");
+        }
+        commonResult.setStatus(201);
+        commonResult.setMsg("保存用户成功！");
+        return commonResult;
+    }
+
     @PutMapping("/users/{userId}/mgState/{mgState}")
     @CrossOrigin(allowCredentials = "true")
     public CommonResult<CommonPage<UserVo>> updateMgState(HttpSession session, @PathVariable Integer userId,
