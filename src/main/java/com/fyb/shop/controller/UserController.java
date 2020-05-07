@@ -112,6 +112,7 @@ public class UserController {
         User user = userService.getById(id);
         if(user==null){
             commonResult.setMsg("获取用户信息失败!");
+            return commonResult;
         }
         commonResult.setMsg("成功获取用户信息！");
         commonResult.setStatus(200);
@@ -132,6 +133,7 @@ public class UserController {
         boolean save = userService.save(user);
         if(!save){
             commonResult.setMsg("保存失败！");
+            return commonResult;
         }
         commonResult.setStatus(201);
         commonResult.setMsg("保存用户成功！");
@@ -151,9 +153,28 @@ public class UserController {
         boolean update = userService.updateById(user);
         if(!update){
             commonResult.setMsg("修改失败！");
+            return commonResult;
         }
         commonResult.setStatus(201);
         commonResult.setMsg("修改用户成功！");
+        return commonResult;
+    }
+    @DeleteMapping("/users/{id}")
+    @CrossOrigin(allowCredentials = "true")
+    public CommonResult<CommonPage<UserVo>> deleteUser(HttpSession session, @PathVariable Integer id){
+        CommonResult<CommonPage<UserVo>> commonResult = new CommonResult<>();
+        boolean login = isLogin(session);
+        if(!login){
+            commonResult.setMsg("请登录！");
+            return commonResult;
+        }
+        boolean remove = userService.removeById(id);
+        if(!remove){
+            commonResult.setMsg("删除失败！");
+            return commonResult;
+        }
+        commonResult.setStatus(200);
+        commonResult.setMsg("删除用户成功！");
         return commonResult;
     }
 
