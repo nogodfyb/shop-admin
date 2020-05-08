@@ -1,12 +1,14 @@
 package com.fyb.shop.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -50,6 +52,10 @@ public class Rights implements Serializable {
      * 权限等级
      */
     private String level;
+
+    //不是数据库字段，不需要映射
+    @TableField(exist=false)
+    private List<Rights> children;
 
 
 }

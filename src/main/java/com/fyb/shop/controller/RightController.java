@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,6 +61,15 @@ public class RightController {
         commonResult.setData(rightsList);
         commonResult.setMsg("查询权限列表成功!");
         return commonResult;
+    }
+
+    @GetMapping("/test")
+    public ArrayList<Rights> test (){
+
+        ArrayList<Rights> allRightsTree = rightService.getAllRightsTree();
+
+        return allRightsTree;
+
     }
 
 }

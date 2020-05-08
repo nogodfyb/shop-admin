@@ -9,3 +9,6 @@ GET http://localhost:8081/shop/right/list
 Accept: application/json
 
 ###
+GET http://localhost:8081/shop/right/test
+
+###
