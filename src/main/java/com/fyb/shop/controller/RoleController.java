@@ -9,6 +9,7 @@ import com.fyb.shop.service.IRightService;
 import com.fyb.shop.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,7 @@ public class RoleController {
     private IRightService rightService;
 
     @GetMapping("/roles")
+    @CrossOrigin(allowCredentials = "true")
     public CommonResult<List<Role>> findAllRoles(){
         CommonResult<List<Role>> result = new CommonResult<>();
         boolean login = isLogin(session);
@@ -74,5 +76,7 @@ public class RoleController {
         result.setMsg("查询所有角色列表成功！");
         return result;
     }
+
+
 
 }

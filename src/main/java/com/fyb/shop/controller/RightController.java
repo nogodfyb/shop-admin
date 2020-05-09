@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,6 +60,22 @@ public class RightController {
         commonResult.setStatus(200);
         commonResult.setData(rightsList);
         commonResult.setMsg("查询权限列表成功!");
+        return commonResult;
+    }
+
+    @GetMapping("/tree")
+    @CrossOrigin(allowCredentials = "true")
+    public CommonResult<List<Rights>> getAllRightsTree(){
+        CommonResult<List<Rights>> commonResult = new CommonResult<>();
+        boolean login = isLogin(session);
+        if(!login){
+            commonResult.setMsg("请登录！");
+            return commonResult;
+        }
+        ArrayList<Rights> allRightsTree = rightService.getAllRightsTree(null);
+        commonResult.setMsg("查询成功权限树！");
+        commonResult.setStatus(200);
+        commonResult.setData(allRightsTree);
         return commonResult;
     }
 
