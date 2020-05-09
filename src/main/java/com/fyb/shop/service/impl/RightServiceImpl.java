@@ -25,10 +25,11 @@ public class RightServiceImpl extends ServiceImpl<RightMapper, Rights> implement
     private RightMapper rightMapper;
 
 
+
     @Override
-    public ArrayList<Rights> getAllRightsTree(){
+    public ArrayList<Rights> getAllRightsTree(List<Integer> idList){
         //原始数据
-        List<Rights> rootList = rightMapper.selectList(null);
+        List<Rights> rootList = rightMapper.selectBatchIds(idList);
         //最后的结果
         ArrayList<Rights> categoryArrayList = new ArrayList<>();
         //先找到所有的一级菜单，parentid为0

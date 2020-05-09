@@ -1,11 +1,15 @@
 package com.fyb.shop.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -33,6 +37,7 @@ public class Role implements Serializable {
     /**
      * 权限ids,1,2,5
      */
+    @JsonIgnore
     private String rightsIds;
 
     /**
@@ -41,6 +46,10 @@ public class Role implements Serializable {
     private String rightsControllers;
 
     private String roleDesc;
+
+    //不是数据库字段，不需要映射
+    @TableField(exist=false)
+    private List<Rights> children;
 
 
 }

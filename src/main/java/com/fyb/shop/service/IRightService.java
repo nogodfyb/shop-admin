@@ -4,6 +4,7 @@ import com.fyb.shop.entity.Rights;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +17,5 @@ import java.util.ArrayList;
 public interface IRightService extends IService<Rights> {
 
 
-    ArrayList<Rights> getAllRightsTree();
+    ArrayList<Rights> getAllRightsTree(List<Integer> idlist);
 }
